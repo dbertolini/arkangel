@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center;">Alertas&nbsp;&nbsp;&nbsp;</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <img height="20" src="assets/imgs/logo-arcangel.png">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-toggle [(ngModel)]="notificationsEnabled"></ion-toggle>
+    <ion-label>
+      Activación
+    </ion-label>
+    <ion-icon name='notifications' item-start></ion-icon>
+  </ion-item>
+
+  <ion-card *ngIf="temperatureEnabled">
+    <ion-card-header>
+      <span class="textheader">Temperatura (actual: {{ indicatorsTemperature }}ºC)</span>
+    </ion-card-header>
+    <ion-card-content>
+      <span class="text">&nbsp;&nbsp;&nbsp;Min: {{ presetTemperature.lower }}ºC</span><br>
+      <span class="text">&nbsp;&nbsp;&nbsp;Max: {{ presetTemperature.upper }}ºC</span>
+    </ion-card-content>
+    <ion-item>
+      <ion-range dualKnobs="true" pin="true" [(ngModel)]="presetTemperature" color="dark">
+        <ion-icon range-left small color="primary" name="snow"></ion-icon>
+        <ion-icon range-right small color="danger" name="sunny"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="humidityEnabled">
+    <ion-card-header>
+      <span class="textheader">Humedad (actual: {{ indicatorsHumidity }}%)</span>
+    </ion-card-header>
+    <ion-card-content>
+      <span class="text">&nbsp;&nbsp;&nbsp;Min: {{ presetHumidity.lower }}%</span><br>
+      <span class="text">&nbsp;&nbsp;&nbsp;Max: {{ presetHumidity.upper }}%</span>
+    </ion-card-content>
+    <ion-item>
+      <ion-range dualKnobs="true" pin="true" [(ngModel)]="presetHumidity" color="dark">
+        <ion-icon range-left small color="primary" name="cloud"></ion-icon>
+        <ion-icon range-right small color="danger" name="rainy"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="luminosityEnabled">
+    <ion-card-header>
+      <span class="textheader">Luminosidad (actual: {{ indicatorsLight }}%)</span>
+    </ion-card-header>
+    <ion-card-content>
+      <span class="text">&nbsp;&nbsp;&nbsp;Min: {{ presetLuminosity.lower }}%</span><br>
+      <span class="text">&nbsp;&nbsp;&nbsp;Max: {{ presetLuminosity.upper }}%</span>
+    </ion-card-content>
+    <ion-item>
+      <ion-range dualKnobs="true" pin="true" [(ngModel)]="presetLuminosity" color="dark">
+        <ion-icon range-left small color="primary" name="bulb"></ion-icon>
+        <ion-icon range-right small color="danger" name="bulb"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="soundEnabled">
+    <ion-card-header>
+      <span class="textheader">Sonido (actual: {{ indicatorsSound }}%)</span>
+    </ion-card-header>
+    <ion-card-content>
+      <span class="text">&nbsp;&nbsp;&nbsp;Min: {{ presetSound.lower }}%</span><br>
+      <span class="text">&nbsp;&nbsp;&nbsp;Max: {{ presetSound.upper }}%</span>
+    </ion-card-content>
+    <ion-item>
+      <ion-range dualKnobs="true" pin="true" [(ngModel)]="presetSound" color="dark">
+        <ion-icon range-left small color="primary" name="mic-off"></ion-icon>
+        <ion-icon range-right small color="danger" name="mic"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="smokeEnabled">
+    <ion-card-header>
+      <span class="textheader">Humos (actual: {{ indicatorsSmoke }}%)</span>
+    </ion-card-header>
+    <ion-card-content>
+      <span class="text">&nbsp;&nbsp;&nbsp;Min: {{ presetSmoke.lower }}%</span><br>
+      <span class="text">&nbsp;&nbsp;&nbsp;Max: {{ presetSmoke.upper }}%</span>
+    </ion-card-content>
+    <ion-item>
+      <ion-range dualKnobs="true" pin="true" [(ngModel)]="presetSmoke" color="dark">
+        <ion-icon range-left small color="primary" name="no-smoking"></ion-icon>
+        <ion-icon range-right small color="danger" name="no-smoking"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-card>
+
+  <button ion-button block (click)="aplicarCambios()">Aplicar cambios</button>
+
+</ion-content>

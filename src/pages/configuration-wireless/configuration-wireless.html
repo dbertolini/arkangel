@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title style="text-align: center;">Modo wireless&nbsp;&nbsp;&nbsp;</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <img height="20" src="assets/imgs/logo-arcangel.png">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-list radio-group>
+    <ion-list-header>
+      Selección de modo:
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Bluetooth</ion-label>
+      <ion-radio checked="true" value="bluetooth"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Wifi</ion-label>
+      <ion-radio value="wifi"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <button ion-button full (click)="aplicarCambios()">Aplicar cambios</button>
+</ion-content>

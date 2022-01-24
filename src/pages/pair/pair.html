@@ -1,0 +1,40 @@
+<ion-content padding>
+  <ion-slides>
+    <ion-slide class="swiper-no-swiping">
+      <h4>Encienda el dispositivo Arcangel, el bluetooth del celular y presione en continuar</h4>
+      <br>
+      <img style="max-width:80px;" src="assets/imgs/bluetooth.png">
+      <br>
+      <br>
+      <button ion-button full (click)="goToSlide(2)">
+        <ion-icon name="log-in"></ion-icon>&nbsp;
+        Continuar
+      </button>
+    </ion-slide>
+    <ion-slide class="swiper-no-swiping">
+      <h4>Dispositivos previamente emparejados</h4>
+      <ion-list padding>
+        <ion-item>
+          <span (click)="conectarYaConocido()">
+            Arcangel-T800
+          </span>
+        </ion-item>
+      </ion-list>
+      <h4>Dispositivos encontrados</h4>
+      <!-- <p>Por favor seleccione el dispositivo Arcangel deseado.</p> -->
+      <ion-list padding>
+        <ion-item *ngFor="let device of unpairedDevices">
+          <span (click)="selectDevice(device.address)">
+            {{device.name}}
+          </span>
+        </ion-item>
+        <button ion-button block (click)="startScanning()">
+          <ion-icon name="refresh"></ion-icon>&nbsp;
+          Buscar nuevamente
+        </button>
+      </ion-list>
+      <!-- <button ion-button block (click)="disconnect()">#Disconnect</button>
+      <button ion-button full (click)="goToSlide(3)">#Continuar</button> -->
+    </ion-slide>
+  </ion-slides>
+</ion-content>

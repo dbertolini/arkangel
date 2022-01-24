@@ -1,0 +1,101 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title style="text-align: center;">Sensores&nbsp;&nbsp;&nbsp;</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <img height="20" src="assets/imgs/logo-arcangel.png">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-list-header>
+      Sensores habilitados:
+    </ion-list-header>
+    <ion-item>
+      <ion-toggle (ionChange)="refreshSensors()" [(ngModel)]="temperatureEnabled"></ion-toggle>
+      <ion-label>
+        Temperatura
+      </ion-label>
+      <ion-icon name='thermometer' item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle (ionChange)="refreshSensors()" [(ngModel)]="humidityEnabled"></ion-toggle>
+      <ion-label>
+        Humedad
+      </ion-label>
+      <ion-icon name='water' item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle (ionChange)="refreshSensors()" [(ngModel)]="movementEnabled"></ion-toggle>
+      <ion-label>
+        Movimiento
+      </ion-label>
+      <ion-icon name='walk' item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle (ionChange)="refreshSensors()" [(ngModel)]="movementBarandaEnabled"></ion-toggle>
+      <ion-label>
+        Movimiento Baranda
+      </ion-label>
+      <ion-icon name='walk' item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle (ionChange)="refreshSensors()" [(ngModel)]="vibrationEnabled"></ion-toggle>
+      <ion-label>
+        Vibración
+      </ion-label>
+      <ion-icon name='radio' item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle (ionChange)="refreshSensors()" [(ngModel)]="vibrationBarandaEnabled"></ion-toggle>
+      <ion-label>
+        Vibración Baranda
+      </ion-label>
+      <ion-icon name='radio' item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle (ionChange)="refreshSensors()" [(ngModel)]="proximityEnabled"></ion-toggle>
+      <ion-label>
+        Proximidad
+      </ion-label>
+      <ion-icon name='logo-rss' item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle (ionChange)="refreshSensors()" [(ngModel)]="luminosityEnabled"></ion-toggle>
+      <ion-label>
+        Luminosidad
+      </ion-label>
+      <ion-icon name='bulb' item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle (ionChange)="refreshSensors()" [(ngModel)]="soundEnabled"></ion-toggle>
+      <ion-label>
+        Sonido
+      </ion-label>
+      <ion-icon name='mic' item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle (ionChange)="refreshSensors()" [(ngModel)]="smokeEnabled"></ion-toggle>
+      <ion-label>
+        Humos
+      </ion-label>
+      <ion-icon name='no-smoking' item-start></ion-icon>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

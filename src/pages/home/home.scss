@@ -1,0 +1,30 @@
+page-home {
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+   }
+
+  .text{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 35px;
+  }
+
+  .textOn{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 35px;
+    color: #f53d3d;
+  }
+
+  .textOff{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 35px;
+    color: #32db64;
+  }
+
+  .textheader{
+    float: left;
+  }
+}

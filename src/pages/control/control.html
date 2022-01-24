@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title style="text-align: center;">Control&nbsp;&nbsp;&nbsp;</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <img height="20" src="assets/imgs/logo-arcangel.png">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <button ion-button block (click)="pinValueChange(13, 'HIGH')">Prender luz</button>
+  <button ion-button block (click)="pinValueChange(13, 'LOW')">Apagar luz</button>
+
+  <!-- <button ion-button block (click)="fireAlarm()">Dispara alarma</button> -->
+</ion-content>

@@ -1,0 +1,175 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title style="text-align: center;">Mediciones&nbsp;&nbsp;&nbsp;</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <img height="20" src="assets/imgs/logo-arcangel.png">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngIf="alertaDisparada">
+    <ion-card-header>
+        <span class="textheader">Alerta disparada</span>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-list>
+          <ion-item *ngIf="alertaTemperatureDisparada">
+            <ion-label>Temperatura</ion-label>
+            <ion-icon small name='thermometer' color="danger" item-start></ion-icon>
+          </ion-item>
+          <ion-item *ngIf="alertaHumidityDisparada">
+            <ion-label>Humedad</ion-label>
+            <ion-icon small name='water' color="danger" item-start></ion-icon>
+          </ion-item>
+          <ion-item *ngIf="alertaLuminosityDisparada">
+            <ion-label>Luminosidad</ion-label>
+            <ion-icon small name='bulb' color="danger" item-start></ion-icon>
+          </ion-item>
+          <ion-item *ngIf="alertaSoundDisparada">
+            <ion-label>Sonido</ion-label>
+            <ion-icon small name='mic' color="danger" item-start></ion-icon>
+          </ion-item>
+          <ion-item *ngIf="alertaSmokeDisparada">
+            <ion-label>Humos</ion-label>
+            <ion-icon small name='no-smoking' color="danger" item-start></ion-icon>
+          </ion-item>
+          <ion-item *ngIf="alertaAlguienAfueraDisparada">
+            <ion-label>Hay un visitante</ion-label>
+            <ion-icon small name='bulb' color="danger" item-start></ion-icon>
+          </ion-item>
+          <ion-item *ngIf="alertaBebeParadoDisparada">
+            <ion-label>Bebé se escapa</ion-label>
+            <ion-icon small name='bulb' color="danger" item-start></ion-icon>
+          </ion-item>
+        </ion-list>
+        <button ion-button full color="danger" (click)="alertaAtendida()">Alerta atendida</button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="temperatureEnabled">
+    <ion-card-header>
+        <span class="textheader">Temperatura</span>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-icon large name="thermometer" color="primary" style="zoom:2.0;"></ion-icon>
+        <span class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ indicators.temperature }}ºC</span>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="humidityEnabled">
+    <ion-card-header>
+        <span class="textheader">Humedad</span>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-icon large name="water" color="primary" style="zoom:2.0;"></ion-icon>
+        <span class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ indicators.humidity }}%</span>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="movementEnabled">
+    <ion-card-header>
+        <span class="textheader">Movimiento</span>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-icon large name="walk" color="primary" style="zoom:2.0;"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <ion-icon *ngIf="movementDetected" large name="radio-button-on" color="danger" style="zoom:2.0;"></ion-icon>
+        <ion-icon *ngIf="!movementDetected" large name="radio-button-on" color="secondary" style="zoom:2.0;"></ion-icon>
+        <span *ngIf="movementDetected" class="textOn">&nbsp;&nbsp;&nbsp;DET</span>
+        <span *ngIf="!movementDetected" class="textOff">&nbsp;&nbsp;&nbsp;OK</span>
+        <!-- <span class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ indicators.movement }}</span> -->
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="movementBarandaEnabled">
+    <ion-card-header>
+        <span class="textheader">Movimiento Baranda</span>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-icon large name="walk" color="primary" style="zoom:2.0;"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <ion-icon *ngIf="movementBarandaDetected" large name="radio-button-on" color="danger" style="zoom:2.0;"></ion-icon>
+        <ion-icon *ngIf="!movementBarandaDetected" large name="radio-button-on" color="secondary" style="zoom:2.0;"></ion-icon>
+        <span *ngIf="movementBarandaDetected" class="textOn">&nbsp;&nbsp;&nbsp;DET</span>
+        <span *ngIf="!movementBarandaDetected" class="textOff">&nbsp;&nbsp;&nbsp;OK</span>
+        <!-- <span class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ indicators.movement }}</span> -->
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="vibrationEnabled">
+    <ion-card-header>
+        <span class="textheader">Vibración</span>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-icon large name="analytics" color="primary" style="zoom:2.0;"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <ion-icon *ngIf="vibrationDetected" large name="radio-button-on" color="danger" style="zoom:2.0;"></ion-icon>
+        <ion-icon *ngIf="!vibrationDetected" large name="radio-button-on" color="secondary" style="zoom:2.0;"></ion-icon>
+        <span *ngIf="vibrationDetected" class="textOn">&nbsp;&nbsp;&nbsp;DET</span>
+        <span *ngIf="!vibrationDetected" class="textOff">&nbsp;&nbsp;&nbsp;OK</span>
+        <!-- <span class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ indicators.piezo }}</span> -->
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="vibrationBarandaEnabled">
+    <ion-card-header>
+        <span class="textheader">Vibración Baranda</span>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-icon large name="analytics" color="primary" style="zoom:2.0;"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <ion-icon *ngIf="vibrationBarandaDetected" large name="radio-button-on" color="danger" style="zoom:2.0;"></ion-icon>
+        <ion-icon *ngIf="!vibrationBarandaDetected" large name="radio-button-on" color="secondary" style="zoom:2.0;"></ion-icon>
+        <span *ngIf="vibrationBarandaDetected" class="textOn">&nbsp;&nbsp;&nbsp;DET</span>
+        <span *ngIf="!vibrationBarandaDetected" class="textOff">&nbsp;&nbsp;&nbsp;OK</span>
+        <!-- <span class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ indicators.piezo }}</span> -->
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="proximityEnabled">
+    <ion-card-header>
+        <span class="textheader">Proximidad</span>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-icon large name="logo-rss" color="primary" style="zoom:2.0;"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <ion-icon *ngIf="proximityDetected" large name="radio-button-on" color="danger" style="zoom:2.0;"></ion-icon>
+        <ion-icon *ngIf="!proximityDetected" large name="radio-button-on" color="secondary" style="zoom:2.0;"></ion-icon>
+        <span *ngIf="proximityDetected" class="textOn">&nbsp;&nbsp;&nbsp;DET</span>
+        <span *ngIf="!proximityDetected" class="textOff">&nbsp;&nbsp;&nbsp;OK</span>
+        <!-- <span class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ indicators.proximity }}</span> -->
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="luminosityEnabled">
+    <ion-card-header>
+        <span class="textheader">Luminosidad</span>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-icon large name="bulb" color="primary" style="zoom:2.0;"></ion-icon>
+        <span class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ indicators.light }}%</span>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="soundEnabled">
+    <ion-card-header>
+        <span class="textheader">Sonido</span>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-icon large name="mic" color="primary" style="zoom:2.0;"></ion-icon>
+        <span class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ indicators.sound }}%</span>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="smokeEnabled">
+    <ion-card-header>
+        <span class="textheader">Humos</span>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-icon large name="no-smoking" color="primary" style="zoom:2.0;"></ion-icon>
+        <span class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ indicators.smoke }}%</span>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

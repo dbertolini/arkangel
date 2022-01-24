@@ -1,0 +1,496 @@
+\documentclass{IEEEtran}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage{authblk}
+
+\begin{document}
+
+	\title{Sistema de monitoreo para bebés y su ambiente}
+	\author{Autores: Juan Alvares y Diego Bertolini}
+	\affil{Tutor: Gabriel Taboada}
+	\affil{Facultad de Ingeniería, Universidad de Palermo}
+	\date{Mayo de 2018}
+	\maketitle
+
+	\begin{abstract}
+		Texto a completar luego
+
+		Palabras clave
+
+		Nomenclaturas
+	\end{abstract}
+
+	\section{Introducción}
+
+		\fontfamily{pcr}
+
+		Arcangel es un dispositivo integrado a una cuna que permite monitorear a un bebé a través de distintos sensores. Entre ellos, encontramos sensores de movimiento, temperatura y humedad ambiente, sonido, luz y gases tóxicos entre otros.
+
+		El sistema incorpora la generación de alertas a los responsables del cuidado del bebé ante la detección de variaciones drásticas en las lecturas de los sensores. Las alertas son entregadas mediante una aplicación móvil conectada con el dispositivo que procesa la información recolectada por los sensores y la almacena en la nube para un posterior análisis de datos.
+
+		La aplicación genera gráficos en tiempo real, mostrando las diferentes mediciones de cada sensor.
+
+	\section{Caso de estudio}
+
+		El cuidado de bebés es un proceso altamente demandante en tiempo para las personas a cargo. La tarea incluye el control del ambiente en el que se encuentra, donde se manejan variables como la luz, temperatura, humedad, ruido e incluso la calidad del aire o la ausencia de determinados gases que pueden ser dañinos para un bebé.
+
+		El objetivo del proyecto es analizar datos sensoriales ambientales y del bebé para identificar emergencias como episodios epilépticos, muerte súbita, y cambios en las variables ambientales.
+
+		El proyecto se focaliza en aumentar el control de estas variables, facilitando la tarea de las personas y dando valores confiables sobre los cuales tomar decisiones adecuadas para el bienestar del bebé.
+
+		Esta tecnología nos permite, por ejemplo, identificar episodios epilépticos y notificar a los usuarios de la app para que acudan de inmediato.
+
+		Haciendo uso de la conectividad móvil, es posible hacer llegar la informacion leida por los sensores a dispositivos móviles, permitiendo estar en contacto constante con el estado de las diferentes variables ambientales que rodean y afectan al bebé, pudiendo inferir en el bienestar del mismo.
+
+		Las alertas emitidas por la APP son producto de parámetros configurables por el usuario, donde por ejemplo se establece una temperatura ambiente umbral a partir de la cual se emite una notificación.
+
+		Otras notificaciones son producto del cruce de datos de diferentes sensores para deducir posibles comportamientos peligrosos o problemas que pueda estar teniendo el bebé. Como por ejemplo intentar salir de su cuna, adoptar posiciones peligrosas o combinaciones de humedad y temperatura ambientes que favorecen el desarrollo de ciertas enfermedades.
+
+	\section{Marco teórico}
+
+		\subsection{Cuna}
+
+			Desde su nacimiento hasta los dos o tres años de edad, el bebé descansa y pasa la mayor parte del día en una cuna. A través del tiempo se hicieron cambios en el diseño de las cunas para mejorar la calidad de vida de los pequeños, ya sea haciéndolas más ergonómicas, previniendo malas posturas y hasta utilizando ingeniería en materiales para evitar el desarrollo de agentes biológicos que pueden ser dañinos para seres humanos sin un sistema inmunológico completamente desarrollado. La utilización de materiales ignífugos son altamente demandados al igual que pinturas y adornos no tóxicos, ya que es inevitable que un bebe ocasionalmente se lleve a la boca y muerda lo que tiene a su alcance.
+
+			Siguiendo estos lineamientos de cuidado para los recién nacidos, este proyecto realiza la implementación de un sistema de sensores a estas cunas, sin entrar en contacto directo con el bebé y respetando las normas de seguridad e higiene REF en lo que a voltajes respecta.
+
+		\subsection{Incubadora}
+			Aparato cuya función común es crear un ambiente con la humedad y temperatura adecuados para el crecimiento o reproducción de seres vivos.
+
+			Incubadora Neonatal: incubadora para bebés prematuros o neonatos. Es un equipo fundamental de una unidad de tratamiento intensivo neonatal. Consiste en una cámara cerrada de material transparente que incluye una acolchado esterilizado para acostar al bebé, con calefacción por convección, filtro de aires exterior, ventanas para manipular al paciente, y diversos y sofisticados sistemas de monitoreo que incluyen control de peso, respiración, cardiaco y de actividad cerebral.
+
+		\subsection{Sensores}
+
+			A continuación se mencionan conceptos teóricos sobre las magnitudes medidas por los diferentes sensores implementados. Los detalles técnicos de cada sensor, como ser, errores de medición, voltajes de funcionamiento, alcance, frecuencia de medición, etc. Los mismos serán detallados en la sección desarrollo.
+
+		\subsection{Movimiento}
+
+			El movimiento puede detectarse de forma activa o pasiva.
+
+			Cuando un sensor emite algún tipo de energía se trata de una detección activa, mientras que cuando el sensor no emite ningún tipo de energía, se trata de una detección pasiva REF.
+
+			Ejemplos de detecciones activas son las microondas, el ultrasonido o un rayo infrarrojo. Los sensores miden el tiempo que existe entre la emision y recepcion de energía para deducir si hubo movimiento de algún objeto en el ambiente.
+
+			Los sensores pasivos, por otro lado, miden la emision de radiacion infrarroja de un cuerpo. Ésta radiación, en contraste con las emisiones del ambiente, son utilizadas para determinar la existencia de movimiento.
+
+			En este proyecto se utiliza un sensor pasivo infrarrojo para la detección de movimiento.
+
+			Como se detalla en la sección de desarrollo REF el sensor de movimiento no medirá cantidad ni intensidad, sino la existencia o nó de movimiento. Esas variables serán responsabilidad de otros sensores.
+
+		\subsection{Luz}
+
+			A continuación se explica el concepto de la unidad de medida lux mediante un ejemplo en contraste con lúmenes. Un flujo de 1000 lúmenes, concentrado en un área de 1 metro cuadrado, ilumina a dicha área con una luminiscencia de 1000 lux. Sin embargo, el mismo flujo de 1000 lúmenes sobre una superficie de 10 metros cuadrados, produce una iluminación de solamente 100 lux. REF https://en.wikipedia.org/wiki/Lux
+
+			Mediremos lux en la zona de la cuna en donde esté la cabeza del bebé.
+
+		\subsection{Vibración/Presión}
+
+			Estos conceptos fueron agrupados ya que se utiliza un mismo sensor para medir a ambos.
+
+			Las vibraciones se miden en Hertz (Hz) y define a la cantidad de veces que se completa un ciclo de movimiento por unidad de tiempo. Este proyecto no se beneficia de medir vibraciones en su unidad específica, sino que se utilizará como complemento a la medición de movimiento para deducir posibles conductas del bebé que afecten a la cuna así como posibles agentes externos que actúen sobre ella.
+
+			La presión es el equivalente a una fuerza aplicada sobre una superficie. Mediante la medicion de presion en diferentes puntos podemos conocer la posición general del bebé. También podemos complementar al sensor de movimiento conociendo puntos específicos en donde el bebé se mueva, cosa que el sensor de movimiento no es capaz de hacer. De esta manera se obtienen datos de movimiento y posicionamiento de manera pasiva, sin recurrir a la utilización de emisores adheridos al bebé o a la ropa.
+
+		\subsection{Temperatura y Humedad ambiente}
+
+			Se entiende por temperatura a la magnitud física que mide cantidad de calor. En el marco de este proyecto, se mide temperatura ambiente y variaciones de temperatura en un cuerpo. Cuando hablamos de humedad ambiente, nos referimos a la humedad relativa ambiente. Ésta es definida como el porcentaje de la cantidad de vapor de agua en el aire respecto de la máxima cantidad que el aire puede contener a una determinada temperatura. Por ejemplo, 1 metro cúbico de aire a 20$^\circ$C puede contener un máximo de 20 gramos de agua, lo que corresponde al 100\% de humedad relativa. Si la humedad relativa fuese del 25\%, sin conocer la temperatura, puede interpretarse de dos maneras. Si asumimos temperatura constante de 20$^\circ$C, podemos afirmar que estamos en presencia de 5 gramos de agua por cada metro cúbico de aire. Pero si la temperatura fuera distinta, los gramos de agua dejarían de ser proporcionales. Es decir que la humedad relativa varía con la temperatura.
+
+		\subsection{Sonido}
+
+			Se lo define como un fenómeno que involucra la propagación de ondas mecánicas. Estas ondas pueden ser audibles o no.
+
+			El sonido audible por humanos son las ondas que el oído puede convertir para ser procesadas por el cerebro.
+
+		\subsection{Gases (monóxido de carbono, gas butano y humos)}
+
+			El monóxido de carbono (CO) es un gas incoloro e inoloro altamente tóxico que puede causar la muerte o enfermedades. Es emitido por combustiones. En los hogares, los emisores típicos de CO son las estufas, hornos y anafes.  Si la instalación no fue debidamente hecha, controlada y habilitada, estos equipos generan una concentración de CO en el ambiente que intoxicara a cualquier humano que la respire. Aun así, una avería o falta de mantenimiento puede generar la acumulacion de este gas en un ambiente hogareño.
+
+			Cumplir con las normas de instalación de estos artefactos es crítico cuando están encendidos durante la noche, ya que la intoxicación durante el sueño suele llevar a la muerte.
+
+			Los síntomas más comunes del envenenamiento por CO son:  REF
+
+			\begin{itemize}
+				\item Dolor de cabeza
+				\item Mareos
+				\item Debilidad
+				\item Náusea
+				\item Vómitos
+				\item Dolor en el pecho
+				\item Confusión
+			\end{itemize}
+
+			Este proyecto implementa un sensor detector de Monóxido de Carbono.
+
+			El gas butano, como el Monóxido de Carbono, es un gas incoloro e inoloro. Es el gas utilizado en las redes de gas natural y se le añade un odorizante para identificar fugas. Además de ser tóxico, es altamente volátil.
+
+			Si bien las instalaciones de gas son detalladamente inspeccionadas, las pérdidas son comunes y muchas veces pasan desapercibidas.
+
+			Un riesgo adicional es el error humano a la hora de utilizar equipos que no cuenten con válvulas de seguridad. Por ejemplo, los anafes de cocina. Si bien el fuerte olor del gas nos permite identificarlo rapidamente, dependerá que tan cerca estemos de la fuente de la fuga. Más importante aún, tal vez haya habitaciones menos favorecidas por corrientes de aire que se inunden de gas mucho antes de que una persona adulta identifique el nauseabundo olor.
+
+			Equipando al dispositivo con un sensor de gas butano y otros gases combustibles, la App emitirá notificaciones a partir de un determinado valor.
+
+		\subsection{Arduino}
+
+			Arduino es una plataforma open-source REF usada para el desarrollo de proyectos de hardware.
+
+			Se trabaja con un microcontrolador (el Arduino) y un IDE. REF Usando una PC se cargan instrucciones desde al Arduino para, en este caso, hacer la lectura de los diferentes sensores. Las instrucciones pertenecen a una versión simplificada del lenguaje C++, cuya popularidad hace muy amigable a nuevos usuarios del mundo de la electrónica como nosotros.
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=1\linewidth]{arduino-mega}
+				\caption{Arduino MEGA 2560}
+				\label{arduino-mega}
+			\end{figure}
+
+		\subsection{Arduino MEGA 2560}
+
+			Es una versión de arduino diseñada para proyectos más complejos. cuenta con 54 pines digitales de entrada/salida, 16 pins analogicos de entrada y una distribución de componentes más amplia para mayor comodidad a la hora del conexionado.
+
+			En la \textbf{Figura \ref{arduino-mega}} se aprecia el amplio espacio y número de conectores en la placa.
+
+			En nuestro caso particular, nos vemos más beneficiados por la cantidad de entradas y salidas ya que utilizamos una amplia gama de sensores. Arduino MEGA es programado mediante Arduino Software (IDE) REF.  Se alimenta con un voltaje recomendado de entre 7 y 12v, valores que se encuentran dentro de los rangos de seguridad para humanos.
+
+			Los propios pines de 5v de Arduino MEGA son suficientes para alimentar a todos los sensores, por lo que no se requiere de una fuente de energía adicional.
+
+			Muchos sensores utilizados requieren librerías adicionales para su funcionamiento. Se hará referencia a ellas en la sección de desarrollo.
+
+		\subsection{Arquitectura}
+
+			La \textbf{Figura \ref{esquemageneral}} refleja un esquema general de todos los componentes que interactúan entre sí y que hacen a la funcionalidad del sistema en su plenitud. Desde el desarrollo de una aplicación híbrida se realiza la conectividad entre el dispositivo móvil y la plaqueta Arduino. En propósito principal de la plaqueta Arduino es tomar las mediciones obtenidas por cada sensor conectado a la misma. La conectividad en el esquema planteado se realiza a través del módulo Bluetooth, de forma tal que la conexión se interpreta como una conectividad punto a punto y los datos son transferidos como un buffer de datos el cual debe ser interpretado por cada parte.
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=1\linewidth]{esquemageneral}
+				\caption{Esquema general de la arquitectura utilizada}
+				\label{esquemageneral}
+			\end{figure}
+
+		\subsection{Ionic}
+
+			Ionic es un framework diseñado para el desarrollo de aplicaciones móviles híbridas, el cual se basa en Angular, Typescript, Javascript, CSS3 y HTML5. El concepto principal se basa en la traducción gráfica de todos los componentes visualizados en cada dispositivo móvil dependiendo la plataforma en la cual se encuentre, ya sea para Android o para iOS, cada componente utilizado tiene su representación gráfica acorde a la plataforma.
+
+			Uno de los principales pilares que tiene Ionic es el de incorporar las librerías de Apache Cordova, la cual contiene toda la lógica, o motor principal, para traducir el código desarrollado independiente por cada plataforma. Es decir, Cordova contiene los desarrollos individuales, algunos desarrollados oficialmente y otros por grupos de desarrolladores de la comunidad que hacen su aporte, de los plugins que hacen a la funcionalidad de cada módulo del sistema operativo en cuestión.
+
+			En la \textbf{Figura \ref{ionic-angular-cordova}} se puede observar cómo interactúan los distintos componentes que hacen al desarrollo de la plataforma final distribuida para cada sistema operativo.
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=1\linewidth]{ionic-angular-cordova}
+				\caption{Componentes de la plataforma}
+				\label{ionic-angular-cordova}
+			\end{figure}
+
+			En lo que respecta al desarrollo híbrido, el aplicativo final para cada plataforma, se traduce como un navegador web incorporado el cual es visualizado por el usuario final. Es por ello que el desarrollo principal está hecho sobre plataformas web. En la \textbf{Figura \ref{ionic-angular-cordova-webview}} se observa el componente WebView que interpreta los recursos incorporados y los lenguajes HTML, CSS y Javascript, dicho componente es el que simula un navegador web dentro del aplicativo final.
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.6\linewidth]{ionic-angular-cordova-webview}
+				\caption{Componente WebView}
+				\label{ionic-angular-cordova-webview}
+			\end{figure}
+
+		\subsection{Conectividad inalámbrica}
+
+			Existen distintos tipos de dispositivos y métodos de conectividad inalámbrica que pueden ser aplicados al sistema en cuestión. El abanico de posibilidades a implementar reside desde dispositivos Bluetooth, módulos WIFI o hasta incluso conectividad telefónica GSM que podría aprovecharse según el esquema en el cual se encuentre implementado el dispositivo o hacia donde quiera desarrollarse. Los ítems estudiados y que mejor se adaptan al dispositivo en cuestión corresponden a las siguientes posibilidades inalámbricas:
+
+			\subsubsection{Bluetooth}
+
+				El módulo bluetooth proporciona una conectividad de protocolo denominada como punto a punto, la cual se centra en emisión y recepción de información bidireccional a través de un buffer de datos.
+				El concepto denominado para el uso de ésta tecnología es WPAN, haciendo referencia al uso de una red inalámbrica de área personal, y sus características radican en la propagación de ondas de radiofrecuencia en la banda ISM de 2.4 GHz.
+				Su utilidad principal puede ser conocida como la conexión para la transferencia de información entre dos dispositivos celulares, por lo que en este caso se estudia como posibilidad para ser implementado en la conexión entre la placa Arduino y un dispositivo móvil para la visualización de datos y alertas.
+
+			\subsubsection{Wifi}
+
+				Se denomina conectividad Wifi a la posibilidad de conectar uno o varios dispositivos entre sí o a través de internet mediante distintos protocolos utilizados. Éste método de conectividad es ideal para la transferencia de información entre la placa Arduino y uno o más dispositivos móviles conectados a través de internet, los cuales pueden ser los dispositivos de los padres y/o tutores del bebé.
+				El protocolo Wifi a utilizar es conocido como TCP, el cual se conectaría a través de internet a un sistema en la nube o API, la cual se encarga de recolectar y almacenar la información suministrada por todos los sensores. El flujo de información en bidireccional por lo que también es posible tomar valores provenientes de algún dispositivo móvil para que desde Arduino realice alguna acción en caso de necesitarla.
+
+	\section{Desarrollo}
+
+		En esta sección el lector encontrará un listado de todos los sensores probados en este proyecto, incluidos los descartados. En cada ítem se describe el objetivo original del sensor, las pruebas realizadas, el veredicto sobre si será incluido en el sistema o nó, y por último un breve comentario sobre cómo interactúa con la App.
+En el último ítem se cruzan datos de diferentes sensores para deducir comportamientos del bebé y situaciones de su ambiente.
+Finalmente se encuentra la descripción de la App. Incluye ejemplos de su interfaz gráfica así como de los algoritmos utilizados para decidir cuándo enviar notificaciones.
+Para una descripción detallada de los materiales utilizados, incluidos los modelos de cada sensor, vea la sección “Materiales Utilizados”.
+
+		\subsection{Metodología de desarrollo}
+
+			Dada la naturaleza de investigación de este proyecto, se sabía de antemano que se iba a trabajar a base de prueba y error para determinar la viabilidad de diferentes partes, tanto de hardware como de software. Los requerimientos y el alcance del proyecto van a cambiar de acuerdo a los resultados de las pruebas, por lo que se optó por una metodología recursiva o de espiral.
+Si bien está definida para entornos de desarrollo de software, el concepto de tener etapas iterativas encaja a la perfección para las pruebas de sensores y su implementación en el sistema. El desarrollo de la APP fue llevado en paralelo a las pruebas de los sensores a utilizar, ya que de ello depende el diseño de la misma y de los algoritmos que procesarán las mediciones de los sensores.
+
+		\subsection{Sensores}
+
+			Cada sensor nos proveerá un dato diferente sobre el bebé o sobre el ambiente donde se encuentre. El proyecto no tiene como objetivo probar las ultimas tecnologias en lo que a sensores respecta, sino en utilizar sensores comerciales de costos relativamente bajos y aprovechar el procesamiento de sus mediciones para deducir situaciones de riesgo para el bebé.
+			Cruzar datos de diferentes sensores para deducir comportamientos del bebé es sin duda una de las tareas más interesantes de este proyecto, ayudando a mantener los costos de hardware bajos.
+			Existe una amplia variedad de sensores disponibles en el mercado. Luego de una preselección, se hicieron pruebas individuales para determinar el comportamiento de cada uno de ellos.
+			Algunos sensores ofrecen mediciones en una unidad específica, con su error de medición para determinadas condiciones del ambiente. Otros sensores miden de forma amodal, con la posibilidad de realizar una conversión para obtener una unidad en particular.
+			En ambos casos, se presenta el problema de que el sujeto a sensorizar no es estático. El bebé se moverá dentro de la cuna y las mediciones se verán severamente afectadas por la variable distancia. Esto nos llevó a descartar un número de sensores, como se verá en las pruebas realizadas. Sin embargo, otros sensores son adecuados para medir la posición del bebé en la cuna e incluso determinar determinados comportamientos, como por ejemplo intentar trepar sobre una de las barandas o por el contrario, detectar una reducción de movimiento.
+			El conjunto de sensores ambientales fue más sencillo de seleccionar ya que se trabaja con la premisa de que la cuna del bebé estará bajo techo.
+			Para observar el comportamiento de los sensores, se utilizó el software open-source TelemetryViewer v0.4 disponible en
+%ref http://www.farrellf.com/.
+Este software muestra los datos leídos de un sensor en forma gráfica y en tiempo real, lo que permitió realizar las siguientes pruebas para cada sensor:
+
+			\subsubsection{Luz}
+
+				El objetivo de este sensor es emitir una notificación cuando se detecta una fuente de luz que pueda estar afectando directamente a la cabeza del bebé, por lo que estará ubicado en la cabecera de la cuna.
+				El sensor fue fijado sobre una superficie plana y se observaron las mediciones con fuentes de luz desde diferentes direcciones. Se utilizaron luces dicroicas y luces LED.
+				La curva generada por TelemetryViewer nos muestra que el sensor es extremadamente sensible a la dirección de la fuente de luz. Cualquier movimiento genera una variación en el gráfico. También se observó la diferencia entre una luz LED y una dicroica, independientemente de su potencia. La luz dicroica genera oscilaciones en el gráfico debido a la frecuencia de la corriente alterna, mientras que la luz LED presenta una curva suave (ver figura 1.1.1).
+				La primer opción es disparar una notificación cuando el sensor, estando correctamente ubicado, alcance un determinado valor.
+				En caso de que no sea suficiente con establecer un valor arbitrario a partir del cual se emite la notificación, es necesario medir la luz ambiente deseada durante un periodo de tiempo para establecerla como valor norma.La App presentará un menú donde el usuario debe indicar que la iluminación medida en ese momento es la deseada. Mientras que el sensor tenga margen para medir mayor luz, el valor será aceptado y al medirse variaciones se disparará una notificación.
+				Si bien sería útil poder identificar la dirección de las fuentes de luz, ningún sensor es capaz de determinarla.
+
+			\subsubsection{Piezoeléctrico}
+
+				Utilizamos varias unidades de este sensor. Originalmente adquirimos una unidad, y luego de las primeras pruebas lo encontramos sumamente útil. El sensor es extremadamente sensible a presiones e incluso vibraciones. La idea es ubicar una grilla de estos sensores por debajo de la manta donde el bebé descansa, y observando las mediciones de los diferentes piezoeléctricos poder indicar en qué posición se encuentra el bebé. Fácilmente puede registrarse cuánto tiempo permanece en cada posición, si se encuentra acostado o de pie, pero por sobre todas las cosas nos da la posibilidad de detectar episodios epilépticos, falta de movimiento y posibles posiciones incómodas o contraindicadas. A mayor número de sensores, mayor precisión se tendrá. A modo de prueba de concepto, implementamos solamente cuatro sensores.
+				Por otro lado, ubicamos otras unidades debajo de las barandas de la cuna, pudiendo enviar notificaciones cuando el bebé se apoye sobre ellas y intente trepar fuera de ella.
+
+			\subsubsection{Movimiento}
+
+				Las pruebas mostraron que el sensor mide únicamente la existencia o inexistencia de movimiento. No sirve para medir distancias ni ubicar a objetos en el espacio.
+				Si bien a primera vista parece ofrecer poca información, su sensibilidad es muy alta y su rango es suficiente para el tamaño de una cuna. Puede usarse en conjunto con los sensores piezoeléctricos para aumentar la precisión de las notificaciones, ya que pequeñas vibraciones pueden activar a los piezoeléctricos pero únicamente el movimiento del bebé activará al sensor de movimiento.
+Incorporar sensores de movimiento en el perímetro de la cuna ayuda a diferenciar entre una persona adulta apoyándose sobre una baranda de cuando el bebé lo hace, ya que en el primer caso se estarían activando los sensores de movimiento perimetrales.
+				La App permitirá activar y desactivar las notificaciones para los sensores de movimiento perimetrales.
+				Alcance del sensor en distancia y ángulo.
+
+			\subsubsection{Temperatura y Humedad Relativa ambiente}
+
+				La App muestra ambos datos en tiempo real y el usuario podrá, opcionalmente, definir un valor máximo y mínimo a partir del cual se emitirán las notificaciones.
+				El sensor tiene la siguiente precisión:
+
+				\begin{itemize}
+					\item Humedad Relativa a 25$^\circ$C: $\pm$ 5\%
+					\item Temperatura: a 25$^\circ$C $\pm$ 2$^\circ$C
+				\end{itemize}
+
+				Como sensor complementario, hubiese sido de gran utilidad medir corrientes de aire en el ambiente. Si el sensor de Temperatura está tapado o bloqueado, no se verá afectado por la corriente de aire pero el bebé sí, lo que dispararía una notificación. lamentablemente no encontramos este tipo de sensores en el mercado Argentino.
+
+			\subsubsection{Gases combustibles}
+
+				El sensor MQ-2 detecta Hidrógeno, monóxido de carbono, gas Licuado, gas butano, gas metano, gas propano, alcohol y humo. Pero es más sensible al gas licuado, butano, metano, alcohol y hidrógeno. Si bien muchos de estos gases es poco probable que estén presentes en el ambiente de un bebé, el sensor nos es útil para detectar gas natural de red y concentraciones de alcohol, que al ser muy utilizado en higiene y medicina, puede acumularse por falta de ventilación.
+				Se hicieron pruebas informales con alcohol, monóxido de carbono, gas de red y humo. Decimos que son pruebas informales porque no fueron en entorno de laboratorio y cada uno de esos gases estaba contaminado por el aire del ambiente. Sin embargo la consideramos una prueba válida ya que simula las condiciones en las que operará el sensor en la vida real. Los resultados fueron positivos, el sensor mostró un tiempo de respuesta más que suficiente para todos los gases aunque el monóxido de carbono será doblemente verificado con un sensor específico para ese gas, ya que lo consideramos crítico por su toxicidad.
+
+			\subsubsection{Monóxido de carbono}
+
+				El sensor MQ-7 es comercialmente conocido para detectar monóxido de carbono. Sin embargo, fue probado a la par del sensor MQ-2 y respondió a todos los gases con igual sensibilidad. 					Según la ficha técnica REF el MQ-7 es particularmente sensible al monóxido de carbono, por lo que es el primer sensor de donde tomamos la medición para este gas. Igualmente se toma la lectura del MQ-2 como redundancia. La App disparará alertas al detectar niveles de gases elevados, aunque no pueda identificarse específicamente que tipo de gas es.
+
+			\subsubsection{Temperatura Infrarrojo}
+
+				El objetivo de este sensor era medir la temperatura del bebé sin entrar en contacto con su piel. Si bien sabíamos de antemano que no iba a ser una medición exacta, hubiese servido al menos de manera referencial, para detectar cambios bruscos en las mediciones y cruzar los datos con las lecturas del sensor de Temperatura y Humedad ambiente.
+				Lamentablemente, el alcance de este sensor es insuficiente para este proyecto. Sin superar los 25cm, las mediciones varían muchísimo para un mismo objeto a diferentes distancias, haciéndolo muy poco confiable. Especialmente cuando se trata de un bebé que se moverá de manera impredecible.
+				Sin conocer la distancia entre el sensor y el bebé, y sin poder ajustar esta distancia para que se mantenga dentro del rango ideal de medición para este sensor, no hay forma alguna de darle algún uso.
+				Por estas razones, la lectura de temperatura del bebé queda descartada.
+
+			\subsubsection{Proximidad}
+
+				Este sensor podría haber sido usado como alarma perimetral. Iba a estar hubicado en todos los puntos donde el bebé pudiera salir de la cuna, pero falló la primer prueba de alcance. Al no poder detectar movimiento a más de 30cm de distancia, no alcanza a leer ni la mitad de la baranda de una cuna promedio.
+				Por esta razón se optó por utilizar un sensor piezoeléctrico en conjunto con sensores de movimiento para determinar si el bebé está intentando salir de su cuna.
+				Si bien es llamado sensor de proximidad, no mide a qué distancia fue detectado el objeto. Hicimos pruebas para confirmarlo y utilizando TelemetryViewer confirmamos que únicamente envía señal alta cuando un objeto interrumpe la emisión infrarroja del sensor y señal baja cuando nada la distorsiona. De haber podido leer la distancia a la que se encuentra el objeto, se podría haber implementado para aumentar la precisión de medición de movimiento del bebé, así como su ubicación en la cuna y sobre los sensores piezoeléctricos.
+
+			\subsubsection{Sonido}
+				Sin duda, el sensor más difícil de probar y calibrar. El objetivo es enviar notificaciones cuando se midan sonidos fuertes dentro del ambiente donde está el bebé.
+				Realizamos pruebas utilizando TelemetryViewer para familiarizarnos con el comportamiento del sensor. Observando las curvas generadas, notamos que se requiere de ruidos muy fuertes para ver cambios grandes en las mediciones. Si bien las mediciones son amodales, daremos un rango de 0 a 1023 para facilitar la comprensión de las pruebas.
+				En un ambiente silencioso, el sensor oscila entre 5 10 puntos de medición. Ruidos provenientes de la calle con una ventana abierta, como el tránsito de un colectivo y automóviles, se miden con variaciones de hasta 25 puntos. Sin embargo, un grito humano es medido con hasta 100 puntos, mientras que un aplauso o un golpe seco son lo único que disparan al máximo las mediciones del sensor.
+				Para conocer aún más su comportamiento, utilizamos un generador de frecuencias con el que recorrimos el rango audible por humanos manteniendo volumen y distancia constantes. El resultado es una mayor medición para frecuencias de rango medio, obteniendo una mayor amplitud en el gráfico del TelemetryViewer cuanto más cerca se encuentra la fuente sonora.
+				Estas pruebas son consideradas positivas. La cercanía del bebé al sensor, el volumen de su llanto y su duración nos hacen posible distinguirlo del ruido ambiente y sonidos provenientes de la calle.
+				Luego de las pruebas, se definieron los siguientes sensores a utilizar en el sistema:
+
+				\begin{itemize}
+					\item Luz \textbf{(Figura \ref{arduino-modulo-luz-ambiente})}
+					\item Piezoeléctrico \textbf{(Figura \ref{arduino-modulo-vibracion})}
+					\item Movimiento \textbf{(Figura \ref{arduino-modulo-movimiento})}
+					\item Sonido \textbf{(Figura \ref{arduino-modulo-sonido})}
+					\item Temperatura y Humedad ambiente \textbf{(Figura \ref{arduino-modulo-temperatura-humedad-ambiente})}
+					\item Gases combustibles \textbf{(Figura \ref{arduino-modulo-monoxido-1})}
+					\item Monóxido de carbono \textbf{(Figura  \ref{arduino-modulo-monoxido-2})}
+				\end{itemize}
+
+				%IMAGEN ARDUINO Y SENSORES CONECTADOS
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\subsection{Materiales}
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.5\linewidth]{arduino-modulo-luz-ambiente}
+				\caption{Sensor de luz ambiente (TEMT6000)}
+				\label{arduino-modulo-luz-ambiente}
+			\end{figure}
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.5\linewidth]{arduino-modulo-vibracion}
+				\caption{Sensor de vibraciones a través de un piezoeléctrico}
+				\label{arduino-modulo-vibracion}
+			\end{figure}
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.5\linewidth]{arduino-modulo-movimiento}
+				\caption{Sensor de movimiento (HC-SR501 )}
+				\label{arduino-modulo-movimiento}
+			\end{figure}
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.5\linewidth]{arduino-modulo-sonido}
+				\caption{Sensor de sonido ambiente (KY-038)}
+				\label{arduino-modulo-sonido}
+			\end{figure}
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.5\linewidth]{arduino-modulo-temperatura-humedad-ambiente}
+				\caption{Sensor de humedad y temperatura ambiente (DTH11)}
+				\label{arduino-modulo-temperatura-humedad-ambiente}
+			\end{figure}
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.5\linewidth]{arduino-modulo-monoxido-1}
+				\caption{Sensor de gases combustibles (MQ-7)}
+				\label{arduino-modulo-monoxido-1}
+			\end{figure}
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.5\linewidth]{arduino-modulo-monoxido-2}
+				\caption{Sensor de gases combustibles (MQ-2)}
+				\label{arduino-modulo-monoxido-2}
+			\end{figure}
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.5\linewidth]{arduino-modulo-wifi}
+				\caption{Módulo de comunicación Wifi (ESP8266)}
+				\label{arduino-modulo-wifi}
+			\end{figure}
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.5\linewidth]{arduino-modulo-bluetooth}
+				\caption{Módulo de comunicación Bluetooth (HC-06)}
+				\label{arduino-modulo-bluetooth}
+			\end{figure}
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.5\linewidth]{arduino-modulo-proximidad}
+				\caption{Sensor de proximidad (FC-51)}
+				\label{arduino-modulo-proximidad}
+			\end{figure}
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.5\linewidth]{arduino-modulo-temperatura}
+				\caption{Sensor de temperatura direccional (MLX90614ESF)}
+				\label{arduino-modulo-temperatura}
+			\end{figure}
+
+	\section{Conclusión}
+
+
+	\section{Líneas futuras de investigación}
+
+		\begin{itemize}
+			\item Detección de necesidad de cambiar al bebé.
+			\item Implementar inteligencia artificial para aumentar la precisión del sensor de sonido a la hora de detectar el llanto del bebé.
+			\item Implementar inteligencia artificial para detectar ataques epilépticos.
+			\item Continuar la búsqueda de sensores que, ya sea por sí solos o en combinación con otros, puedan aportar información.
+			\item Probar sensores con un bebé real.
+			\item Sensor de distancia GP2Y0A21YK0F.
+			\item Raspberry PI.
+		\end{itemize}
+
+	\section{CV}
+
+\end{document}
+
+%	\section{Investigación bibliográfica}
+%		\nocite{*}
+%
+%		\cite{garcia2008sindrome} - Trabajo de revisión sobre las causas, factores de riesgo, epidemología y recomendaciones sobre el SMSL por Felipa Elena García García, Especialista de II Grado en Pediatría. Profesora Auxiliar. Hospital Pediátrico Docente "Juan M. Márquez". La Habana, Cuba.
+%
+
+		% \bibliographystyle{IEEEtran}
+		% \bibliography{bibliografia}
+
+%\textbf{En un lugar de la Mancha}
+
+%\section{...}
+%\subsection{...}
+%\subsubsection{...}
+%\paragraph{...}
+%\subparagraph{...}
+
+%	\begin{table}
+%		\centering
+%		\caption{Mi primera tabla}
+%		\begin{tabular}{|l|l|l|l|l|l|l|l|l|}
+%			\hline
+%			Muerte súbita & 1991 & 1992 & 1993 & 1994 & 1995 & 1996 & 1997 & 1998 \\
+%			\hline
+%			0-365 días & 552 & 516 & 506 & 484 & 500 & 467 & 383 & 417 \\
+%			\hline
+%			28-365 días & 437 & 397 & 380 & 361 & 393 & 378 & 301 & 320 \\
+%			\hline
+%			Recién nacidos vivos & 694.746 & 678.761 & 667.518 & 667.787 & 658.735 & 675.437 & 692.537 & 683.301 \\
+%			\hline
+%			Tasa de mortalidad posneonatal por SMSL & 0.63 & 0.58 & 0.57 & 0.54 & 0.60 & 0.56 & 0.43 & 0.47 \\
+%			\hline
+%			Tasa de mortalidad posneonatal & 9.30 & 8.70 & 8.40 & 7.60 & 8.10 & 7.90 & 7.00 & 7.40 \\
+%			\hline
+%		\end{tabular}
+%		\label{tab.tabla1}
+%	\end{table}
+
+	%Como se presenta en la figura \ref{gatofeliz} el gato naranja está feliz de vivir.
+
+	%\begin{table}
+	%	\centering
+	%	\caption{Mi primera tabla}
+	%	\begin{tabular}{|l|p{4cm}|l|r|}
+	%		\hline
+	%		uno & dos & tres & ddddcuatro \\
+	%		\hline
+	%		one & competencia con el cura de su lugar (que era hombre docto graduado en Sigüenza & threeddddd & four \\
+	%		\hline
+	%	\end{tabular}
+	%	\label{tab.tabla1}
+	%\end{table}
+
+%	Tuvo muchas veces en la tabla \ref{tab.tabla1} competencia con el cura de su lugar (que era hombre docto graduado en Sigüenza), sobre cuál había sido mejor caballero, Palmerín de Inglaterra o Amadís de Gaula; mas maese Nicolás, barbero del mismo pueblo, decía que ninguno llegaba al caballero del Febo, y que si alguno se le podía comparar, era don Galaor, hermano de Amadís de Gaula, porque tenía muy acomodada condición para todo; que no era caballero melindroso, ni tan llorón como su hermano, y que en lo de la valentía no le iba en zaga.
+%
+%	En la sección \ref{sec.desarrollo} se presenta el trabajo realizado.
+%
+%	\section{Desarrollo}\label{sec.desarrollo}
+%
+%	En resolución, él se enfrascó tanto en su lectura, que se le pasaban las noches leyendo de claro en claro, y los días de turbio en turbio, y así, del poco dormir y del mucho leer, se le secó el cerebro, de manera que vino a perder el juicio. Llenósele la fantasía de todo aquello que leía en los libros, así de encantamientos, como de pendencias, batallas, desafíos, heridas, requiebros, amores, tormentas y disparates imposibles, y asentósele de tal modo en la imaginación que era verdad toda aquella máquina de aquellas soñadas invenciones que leía, que para él no había otra historia más cierta en el mundo.
+%	\\
+%	\\	%salto de linea
+%	\\
+%	\newpage
+%
+%	Enumeradores:
+%
+%	\begin{enumerate}
+%		\item Linea uno
+%		\item Linea dos
+%		\begin{enumerate}
+%			\item dos.uno
+%			\item dos.dos
+%		\end{enumerate}
+%		\item Linea tres
+%	\end{enumerate}
+%
+%	Viñetas:
+%
+%	\begin{itemize}
+%		\item Primer item
+%		\item Segundo item
+%			\begin{itemize}
+%				\item Segundo.primer item
+%				\item Segundo.segundo item
+%			\end{itemize}
+%		\item Tercer item
+%	\end{itemize}

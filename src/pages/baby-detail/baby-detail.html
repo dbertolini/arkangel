@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title style="text-align: center;">Estadísticas&nbsp;&nbsp;&nbsp;</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <img height="20" src="assets/imgs/logo-arcangel.png">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <!-- <ion-card>
+    <img [src]="user?.picture.large"/>
+    <ion-card-content>
+      <ion-card-title>
+        {{ user?.name.first }} {{ user?.name.last }}
+        </ion-card-title>
+      <p>
+        {{ user?.email }}
+      </p>
+    </ion-card-content>
+  </ion-card> -->
+  <!-- <p>Temperatura: {{ temperature }}°C</p>
+  <p>Humedad: {{ humidity }}%</p>
+  <button ion-button (click)="cambiaTemp()">Cambia temp</button> -->
+  <ion-card>
+    <ion-card-header>
+      Temperatura prom.
+    </ion-card-header>
+    <ion-card-content>
+      <canvas style="max-height: 200px" #barTemperatureCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Humedad prom.
+    </ion-card-header>
+    <ion-card-content>
+      <canvas style="max-height: 200px" #barHumidityCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Actividad de sensores
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Valores obtenidos
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #doughnutCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Linea de tiempo
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #lineCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

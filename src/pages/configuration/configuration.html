@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title style="text-align: center;">Configuración&nbsp;&nbsp;&nbsp;</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <img height="20" src="assets/imgs/logo-arcangel.png">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list >
+    <button ion-item (click)="goToConfigurationSensors()">
+      <ion-icon name="barcode"></ion-icon>&nbsp;
+      Sensores
+    </button>
+    <button ion-item (click)="goToConfigurationParameters()">
+      <ion-icon name="notifications"></ion-icon>&nbsp;
+      Parámetros de alerta
+    </button>
+    <button ion-item (click)="goToConfigurationWireless()">
+      <ion-icon name="wifi"></ion-icon>&nbsp;
+      Modo wireless
+    </button>
+  </ion-list>
+  <button color="danger" ion-button block (click)="disconnect()">
+    <ion-icon name="log-out"></ion-icon>&nbsp;
+    Desconectar dispositivo
+  </button>
+
+</ion-content>
